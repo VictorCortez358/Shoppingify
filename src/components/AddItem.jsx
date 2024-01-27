@@ -1,13 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import {
-    DatePicker,
     Form,
     Input,
     Select,
 } from "antd";
 
-const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
 const AddItem = ({handleShowAddItemForm, showShoppingList}) => {
@@ -49,7 +47,7 @@ const AddItem = ({handleShowAddItemForm, showShoppingList}) => {
                 <button onClick={handleShowAddItemForm} className="text-black bg-white rounded text-sm py-2 px-4 font-medium font-quicksand phone:py-1 phone:text-xs">
                     Cancel
                 </button>
-                <button className="text-white bg-yellow rounded text-sm py-2 px-5 font-medium font-quicksand phone:py-1 phone:text-xs">
+                <button onClick={handleShowAddItemForm} className="text-white bg-yellow rounded text-sm py-2 px-5 font-medium font-quicksand phone:py-1 phone:text-xs">
                     Save
                 </button>
             </div>

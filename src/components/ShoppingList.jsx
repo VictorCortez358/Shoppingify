@@ -5,6 +5,7 @@ import ShoppingBottle from "../../public/source.svg";
 import ItemCount from "./ItemCount";
 import { Button, Input, Space } from 'antd';
 import AddItem from "./AddItem";
+import ItemInformation from "./ItemInformation";
 
 
 const CardAddItem = ({ handleShowAddItemForm }) => {
@@ -43,65 +44,68 @@ const ListItems = ({ showShoppingList, handleShowAddItemForm }) => {
 
     const [selectedItem, setSelectedItem] = useState(ItemsList);
 
-    return(
-        <div className={`w-shopping_list min-h-screen flex flex-col py-4 px-2 gap-4 fixed right-0 top-0 bottom-0 phone:${showShoppingList ? 'hidden' : 'w-content'} phone:px-5 phone:my-2`}>
-                <CardAddItem handleShowAddItemForm={handleShowAddItemForm} />
-                <h1 className="text-black text-xl font-bold font-quicksand phone:text-base">
-                    Shopping list
-                </h1>
-                <div className="h-3/5 flex flex-col gap-4 overflow-y-auto">
-                    <p className="text-gray-text-1 text-sm font-medium font-quicksand">
-                        Fruit and vegetables
-                    </p>
-                    <div className="flex flex-col items-start justify-center gap-4 px-2">
-                        {selectedItem.map((item) => (
-                            <ItemCount key={item.id} tag={item.name} />
-                        ))}
+    return (
+        <>
+            {
+                showShoppingList ? (
+                    <div className={`w-shopping_list min-h-screen flex flex-col py-4 px-2 gap-4 fixed right-0 top-0 bottom-0 phone:${showShoppingList ? 'hidden' : 'w-content'} phone:px-3 phone:my-2`}>
+                        <CardAddItem handleShowAddItemForm={handleShowAddItemForm} />
+                        <h1 className="text-black text-xl font-bold font-quicksand phone:text-base">
+                            Shopping list
+                        </h1>
+                        <div className="h-3/5 flex flex-col gap-4 overflow-y-auto">
+                            <p className="text-gray-text-1 text-sm font-medium font-quicksand">
+                                Fruit and vegetables
+                            </p>
+                            <div className="flex flex-col items-start justify-center gap-4 px-2">
+                                {selectedItem.map((item) => (
+                                    <ItemCount key={item.id} tag={item.name} />
+                                ))}
+                            </div>
+                            <p className="text-gray-text-1 text-sm font-medium font-quicksand">
+                                Meat and Fish
+                            </p>
+                            <div className="flex flex-col items-start justify-center gap-4 px-2">
+                                {selectedItem.map((item) => (
+                                    <ItemCount key={item.id} tag={item.name} />
+                                ))}
+                            </div>
+                            <p className="text-gray-text-1 text-sm font-medium font-quicksand">
+                                Meat and Fish
+                            </p>
+                            <div className="flex flex-col items-start justify-center gap-4 px-2">
+                                {selectedItem.map((item) => (
+                                    <ItemCount key={item.id} tag={item.name} />
+                                ))}
+                            </div>
+                            <p className="text-gray-text-1 text-sm font-medium font-quicksand">
+                                Meat and Fish
+                            </p>
+                            <div className="flex flex-col items-start justify-center gap-4 px-2">
+                                {selectedItem.map((item) => (
+                                    <ItemCount key={item.id} tag={item.name} />
+                                ))}
+                            </div>
+                        </div>
+                        <Space.Compact
+                            style={{
+                                width: '100%',
+                                margin: 'auto',
+                            }}
+                        >
+                            <Input placeholder="Enter a name" />
+                            <Button type="primary" style={{
+                                width: '30%',
+                                height: 'auto',
+                                backgroundColor: '#F9A109',
+                                fontStyle: 'bold',
+                            }}>SAVE</Button>
+                        </Space.Compact>
                     </div>
-                    <p className="text-gray-text-1 text-sm font-medium font-quicksand">
-                        Meat and Fish
-                    </p>
-                    <div className="flex flex-col items-start justify-center gap-4 px-2">
-                        {selectedItem.map((item) => (
-                            <ItemCount key={item.id} tag={item.name} />
-                        ))}
-                    </div>
-                    <p className="text-gray-text-1 text-sm font-medium font-quicksand">
-                        Meat and Fish
-                    </p>
-                    <div className="flex flex-col items-start justify-center gap-4 px-2">
-                        {selectedItem.map((item) => (
-                            <ItemCount key={item.id} tag={item.name} />
-                        ))}
-                    </div>
-                    <p className="text-gray-text-1 text-sm font-medium font-quicksand">
-                        Meat and Fish
-                    </p>
-                    <div className="flex flex-col items-start justify-center gap-4 px-2">
-                        {selectedItem.map((item) => (
-                            <ItemCount key={item.id} tag={item.name} />
-                        ))}
-                    </div>
-                </div>
-                <Space.Compact
-                    style={{
-                        width: '100%',
-                        margin: 'auto',
-                    }}
-                >
-                    <Input placeholder="Enter a name" style={{
-                        width: '70%',
-                        height: '40px',
-                        border: '1px solid #F9A109',
-                    }} />
-                    <Button type="primary" style={{
-                        width: '30%',
-                        height: '40px',
-                        backgroundColor: '#F9A109',
-                        fontStyle: 'bold',
-                    }}>SAVE</Button>
-                </Space.Compact>
-            </div>
+                ) :
+                    <ItemInformation />
+            }
+        </>
     )
 }
 

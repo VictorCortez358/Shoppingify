@@ -6,6 +6,7 @@ import { useState } from "react";
 
 export default function Home() {
   const [showShoppingList, setShowShoppingList] = useState(true);
+  const [showItemInformation, setShowItemInformation] = useState(false);
 
   const handleShowShoppingList = () => {
     setShowShoppingList(!showShoppingList);
@@ -17,7 +18,7 @@ export default function Home() {
         <Sidebar handleShowShoppingList={handleShowShoppingList} />
       </div>
       <div className="w-full flex flex-row phone:w-content">
-        <MenuList showShoppingList={showShoppingList} />
+        <MenuList showShoppingList={showShoppingList} handleShowShoppingList={handleShowShoppingList} />
         <ShoppingList showShoppingList={showShoppingList} />
       </div>
     </div>

@@ -31,6 +31,7 @@ module.exports = {
         'gray-text': '#34333A',
         'yellow': '#F9A109',
         'gray-text-1': '#828282',
+        'gray-tex-2': '#C1C1C4',
       },
       fontFamily:{
         'quicksand': 'Quicksand, sans-serif'
