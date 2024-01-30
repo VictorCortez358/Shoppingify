@@ -1,6 +1,5 @@
 'use client';
-import HistoryMenu from "@/components/HistoryMenu";
-import MenuList from "@/components/MenuList";
+import HistoryItemInformation from "@/components/HistoryItemInformation";
 import ShoppingList from "@/components/ShoppingList";
 import Sidebar from "@/components/Sidebar";
 import { useState } from "react";
@@ -20,12 +19,12 @@ export default function History() {
         setShowItemInformation(!showItemInformation);
     }
     return (
-        <div className="flex min-h-screen font-quicksand">
+        <div className="flex min-h-screen font-quicksand ">
             <div className="w-sidebar phone:w-sidebar_phone">
                 <Sidebar handleShowShoppingList={handleShowShoppingList} />
             </div>
             <div className="w-full flex flex-row phone:w-content">
-                <HistoryMenu showShoppingList={showShoppingList} handleShowShoppingList={handleShowShoppingList} />
+                <HistoryItemInformation showShoppingList={showShoppingList} handleShowShoppingList={handleShowShoppingList} />
                 <ShoppingList showShoppingList={showShoppingList} handleShowShoppingList={handleShowShoppingList} showItemInformation={showItemInformation} />
             </div>
         </div>

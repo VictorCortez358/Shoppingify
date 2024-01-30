@@ -41,6 +41,7 @@ module.exports = {
       },
       maxHeight:{
         'item': '60%',
+        'item_history': '80%',
       },
       borderColor:{
         'yellow': '#F9A109',

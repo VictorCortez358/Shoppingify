@@ -26,7 +26,7 @@ const CardAddItem = ({ handleShowAddItemForm }) => {
     );
 };
 
-const ListItems = ({ showShoppingList, handleShowAddItemForm }) => {
+const ListItems = ({ showShoppingList, handleShowAddItemForm, handleShowShoppingList, showItemInformation }) => {
     const ItemsList = [
         {
             id: 1,
@@ -47,7 +47,7 @@ const ListItems = ({ showShoppingList, handleShowAddItemForm }) => {
     return (
         <>
             {
-                showShoppingList ? (
+                showItemInformation ? (
                     <div className={`w-shopping_list min-h-screen flex flex-col py-4 px-2 gap-4 fixed right-0 top-0 bottom-0 phone:${showShoppingList ? 'hidden' : 'w-content'} phone:px-3 phone:my-2`}>
                         <CardAddItem handleShowAddItemForm={handleShowAddItemForm} />
                         <h1 className="text-black text-xl font-bold font-quicksand phone:text-base">
@@ -103,14 +103,14 @@ const ListItems = ({ showShoppingList, handleShowAddItemForm }) => {
                         </Space.Compact>
                     </div>
                 ) :
-                    <ItemInformation />
+                    <ItemInformation handleShowShoppingList={handleShowShoppingList} showShoppingList={showShoppingList} showItemInformation={showItemInformation}/>
             }
         </>
     )
 }
 
 
-const ShoppingList = ({ showShoppingList }) => {
+const ShoppingList = ({ showShoppingList, handleShowShoppingList, showItemInformation }) => {
     const [showAddItemForm, setShowAddItemForm] = useState(false);
 
     const handleShowAddItemForm = () => {
@@ -123,7 +123,7 @@ const ShoppingList = ({ showShoppingList }) => {
                 showAddItemForm ? (
                     <AddItem handleShowAddItemForm={handleShowAddItemForm} showShoppingList={showShoppingList} />
                 ) : (
-                    <ListItems showShoppingList={showShoppingList} handleShowAddItemForm={handleShowAddItemForm} />
+                    <ListItems showShoppingList={showShoppingList} handleShowAddItemForm={handleShowAddItemForm} handleShowShoppingList={handleShowShoppingList} showItemInformation={showItemInformation} />
                 )
             }
         </>

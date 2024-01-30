@@ -9,7 +9,7 @@ const HeaderList = () => {
     return (
         <div className="w-full flex flex-row justify-between items-center gap-4">
             <div className="w-1/2 phone:w-full">
-                <h1 className="text-xl text-gray-text font-bold font-quicksand phone:text-lg">
+                <h1 className="text-2xl text-gray-text font-bold font-quicksand phone:text-lg">
                     <span className="text-item_selected font-bold">Shoppingify</span>{" "}
                     allows you to take your shopping list wherever you go
                 </h1>
@@ -25,7 +25,7 @@ const HeaderList = () => {
     );
 };
 
-const ItemsList = ({handleShowShoppingList}) => {
+const ItemsList = ({handleShowItemInformation}) => {
 
     const ItemsList = [
         {
@@ -67,18 +67,18 @@ const ItemsList = ({handleShowShoppingList}) => {
     return(
         <div className="w-full flex flex-wrap items-center gap-6">
             {items.map((item) => (
-                <ItemTag key={item.id} tag={item.name} handleShowShoppingList={handleShowShoppingList} />
+                <ItemTag key={item.id} tag={item.name} handleShowItemInformation={handleShowItemInformation} />
             ))}
         </div>
     )
 }
 
-const MenuList = ({showShoppingList, handleShowShoppingList}) => {
+const MenuList = ({showShoppingList,  handleShowItemInformation}) => {
     return (
         <div className={`w-list min-h-screen flex flex-col items-start py-4 px-14 gap-4 phone:${showShoppingList ? 'w-full' : 'hidden'} phone:px-5`}>
             <HeaderList />
             <p className="text-black text-base font-bold font-quicksand mb-2 mt-4 phone:text-sm">Fruit and vegetables</p>
-            <ItemsList handleShowShoppingList={handleShowShoppingList} />
+            <ItemsList handleShowItemInformation={handleShowItemInformation} />
             <p className="text-black text-base font-bold font-quicksand mb-2 mt-4 phone:text-sm">Beverages</p>
             <ItemsList />
         </div>
