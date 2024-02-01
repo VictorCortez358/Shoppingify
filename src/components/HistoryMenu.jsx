@@ -1,7 +1,9 @@
 import React from 'react';
 import HistoryItem from './HistoryItem';
+import { useRootContext } from "./RootContext";
 
-const HistoryMenu = ({showShoppingList}) => {
+const HistoryMenu = () => {
+    const { showShoppingList } = useRootContext();
     return (
         <div className={`w-list min-h-screen flex flex-col items-start py-4 px-14 gap-4 phone:${showShoppingList ? 'w-full' : 'hidden'} phone:px-4`}>
             <h1 className="text-2xl font-bold mb-6 phone:text-xl phone:mb-4">Shopping history</h1>

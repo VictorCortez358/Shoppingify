@@ -51,6 +51,7 @@ module.exports = {
       },
       backgroundColor:{
         'yellow': '#F9A109',
+        'cyan': '#56CCF2',
       },
     },
   },

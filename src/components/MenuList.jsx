@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Input } from "antd";
 import { SearchOutlined} from "@ant-design/icons";
 import ItemTag from "./ItemTag"
+import { useRootContext } from "./RootContext";
 
 
 const HeaderList = () => {
@@ -73,7 +74,8 @@ const ItemsList = ({handleShowItemInformation}) => {
     )
 }
 
-const MenuList = ({showShoppingList,  handleShowItemInformation}) => {
+const MenuList = () => {
+    const { showShoppingList, handleShowItemInformation } = useRootContext();
     return (
         <div className={`w-list min-h-screen flex flex-col items-start py-4 px-14 gap-4 phone:${showShoppingList ? 'w-full' : 'hidden'} phone:px-5`}>
             <HeaderList />

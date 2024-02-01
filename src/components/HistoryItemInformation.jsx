@@ -9,11 +9,12 @@ dayjs.extend(customParseFormat);
 const dateFormat = 'YYYY-MM-DD';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation'
+import { useRootContext } from "./RootContext";
 
 
 
-const HistoryItemInformation = ({ showShoppingList, handleShowShoppingList }) => {
-
+const HistoryItemInformation = () => {
+    const { showShoppingList, handleShowShoppingList } = useRootContext();
     const router = useRouter()
     const HistoryItems = [
         {

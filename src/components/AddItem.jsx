@@ -5,10 +5,12 @@ import {
     Input,
     Select,
 } from "antd";
+import { useRootContext } from "./RootContext";
 
 const { TextArea } = Input;
 
-const AddItem = ({handleShowAddItemForm, showShoppingList}) => {
+const AddItem = () => {
+    const { showShoppingList, handleShowAddItemForm } = useRootContext();
     const normFile = (e) => {
         if (Array.isArray(e)) {
             return e;

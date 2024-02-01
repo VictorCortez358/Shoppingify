@@ -2,11 +2,10 @@ import React from "react";
 import Image from "next/image";
 import BackIcon from "../../public/keyboard_backspace.svg";
 import AguacateImg from "../../public/aguacate.jpeg";
+import { useRootContext } from "./RootContext";
 
-const ItemInformation = ({
-    handleShowShoppingList,
-    showItemInformation,
-}) => {
+const ItemInformation = () => {
+    const { handleShowShoppingList, showItemInformation } = useRootContext();
     return (
         <div
             className={`w-shopping_list min-h-screen flex flex-col py-4 px-6 gap-4 fixed right-0 top-0 bottom-0 phone:${showItemInformation ? "hidden" : "w-content"

@@ -1,8 +1,10 @@
 import Image from "next/image";
 import AddIcon from "../../public/add.svg";
+import { useRootContext } from "./RootContext";
 
 
-const ItemTag = ({ tag, handleShowItemInformation }) => {
+const ItemTag = ({ tag }) => {
+    const { handleShowItemInformation } = useRootContext();
     return (
         <div onClick={handleShowItemInformation} className="max-w-item flex flex-row items-center justify-between gap-4">
             <p className="text-black text-base font-medium font-quicksand phone:text-sm">{tag}</p>
