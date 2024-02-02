@@ -8,10 +8,14 @@ import Image from "next/image";
 const ButtonGroup = Button.Group;
 import DeleteIcon from "../../public/delete_FILL0_wght400_GRAD0_opsz24.svg";
 
-const ItemCount = ({ tag, showComplete }) => {
+const ItemCount = ({ tag, showComplete, allChecked, checkedAllItems }) => {
     const [count, setCount] = useState(0);
     const [isSelect, setIsSelect] = useState(false);
     const [checked, setChecked] = useState(false);
+
+    const onChange = (e) => {
+        setChecked(e.target.checked);
+    };
 
     const increase = () => {
         setCount(count + 1);
@@ -24,9 +28,7 @@ const ItemCount = ({ tag, showComplete }) => {
         setCount(newCount);
     };
 
-    const onChange = (e) => {
-        setChecked(e.target.checked);
-    };
+
 
     return showComplete ? (
         <div className="w-full flex flex-row items-center justify-between gap-4">
@@ -94,11 +96,11 @@ const ItemCount = ({ tag, showComplete }) => {
                             colorPrimary: "#F9A109",
                         },
                     }}
-                >   
-                    <Checkbox onChange={onChange}  />
+                >
+                    <Checkbox onChange={onChange} checked={checked || allChecked} />
                 </ConfigProvider>
-                
-                <p className={`text-black text-base font-bold font-quicksand phone:text-sm ${checked ? "line-through" : ""}`} >
+
+                <p className={`text-black text-base font-bold font-quicksand phone:text-sm ${checked || allChecked ? "line-through" : ""}`}>
                     {tag}
                 </p>
             </div>

@@ -15,7 +15,7 @@ const options = [
     },
     {
         name: 'graphics',
-        path: '/graphics',
+        path: '/statistics',
     },
 ]
 

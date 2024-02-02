@@ -3,12 +3,44 @@ import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import ShoppingBottle from "../../public/source.svg";
 import ItemCount from "./ItemCount";
-import { Button, Input, Space } from "antd";
+import { Button, Input, Space, Modal } from "antd";
 import { ConfigProvider } from "antd";
 import AddItem from "./AddItem";
 import ItemInformation from "./ItemInformation";
 import { useRootContext } from "./RootContext";
 import EditIcon from "../../public/edit_icon.svg";
+import { ExclamationCircleFilled } from "@ant-design/icons";
+const { confirm } = Modal;
+
+const showDeleteConfirm = () => {
+    confirm({
+        title: "Are you sure that you want to cancel this list?",
+        icon: <ExclamationCircleFilled />,
+        okText: "Yes",
+        okType: "danger",
+        cancelText: "No",
+        onOk() {
+            console.log("OK");
+        },
+        onCancel() {
+            console.log("Cancel");
+        },
+    });
+};
+
+const showConfirm = () => {
+    confirm({
+        title: "Do you Want to delete these items?",
+        icon: <ExclamationCircleFilled />,
+        content: "Some descriptions",
+        onOk() {
+            console.log("OK");
+        },
+        onCancel() {
+            console.log("Cancel");
+        },
+    });
+};
 
 const CardAddItem = ({ handleShowAddItemForm }) => {
     return (
@@ -40,17 +72,74 @@ const ListItems = ({
     const ItemsList = [
         {
             id: 1,
-            name: "Vegetables",
+            category: "Vegetables",
+            items: [
+                {
+                    id: 2,
+                    name: "Fruits",
+                    category: "Fruit and vegetables",
+                },
+                {
+                    id: 3,
+                    name: "Meat",
+                    category: "Meat and Fish",
+                },
+            ],
         },
         {
             id: 2,
-            name: "Fruits",
+            category: "Fruit and vegetables",
+            items: [
+                {
+                    id: 4,
+                    name: "Fruits",
+                    category: "Fruit and vegetables",
+                },
+                {
+                    id: 5,
+                    name: "Meat",
+                    category: "Meat and Fish",
+                },
+            ],
         },
         {
             id: 3,
-            name: "Meat",
+            category: "Meat and Fish",
+            items: [
+                {
+                    id: 6,
+                    name: "Fruits",
+                    category: "Fruit and vegetables",
+                },
+                {
+                    id: 7,
+                    name: "Meat",
+                    category: "Meat and Fish",
+                },
+            ],
         },
+        {
+            id: 4,
+            category: "Fruit and vegetables",
+            items: [
+                {
+                    id: 8,
+                    name: "Fruits",
+                    category: "Fruit and vegetables",
+                },
+                {
+                    id: 9,
+                    name: "Meat",
+                    category: "Meat and Fish",
+                },
+            ],
+        }
     ];
+    const [allChecked, setAllChecked] = useState(false);
+
+    const checkedAllItems = (e) => {
+        setAllChecked(!allChecked);
+    };
 
     const [selectedItem, setSelectedItem] = useState(ItemsList);
     const [showComplete, setShowComplete] = useState(true);
@@ -66,10 +155,9 @@ const ListItems = ({
 
     useEffect(() => {
         if (!showComplete && inputRef.current) {
-            inputRef.current.focus({ cursor: 'end' });
+            inputRef.current.focus({ cursor: "end" });
         }
     }, [showComplete]);
-
 
     return (
         <>
@@ -89,7 +177,6 @@ const ListItems = ({
                                 theme={{
                                     components: {
                                         Input: {
-                                            fontSize: "20px",
                                             fontFamily: "Quicksand",
                                         },
                                     },
@@ -100,6 +187,8 @@ const ListItems = ({
                                     defaultValue={"Shopping list"}
                                     style={{
                                         fontWeight: "bold",
+                                        fontSize: screen.width < 768 ? "16px" : "20px",
+                                        padding: "0",
                                     }}
                                     {...sharedProps}
                                 />
@@ -115,56 +204,26 @@ const ListItems = ({
                     </div>
                     {showComplete ? (
                         <>
-                            <div className="h-3/5 flex flex-col gap-4 overflow-y-auto">
-                                <p className="text-gray-text-1 text-sm font-medium font-quicksand">
-                                    Fruit and vegetables
-                                </p>
-                                <div className="flex flex-col items-start justify-center gap-4 px-2">
-                                    {selectedItem.map((item) => (
-                                        <ItemCount
-                                            key={item.id}
-                                            tag={item.name}
-                                            showComplete={showComplete}
-                                        />
+                            <>
+                                <div className="h-3/5 flex flex-col gap-4 overflow-y-auto">
+                                    {selectedItem.map((category) => (
+                                        <div key={category.id}>
+                                            <p className="text-gray-text-1 text-sm font-medium font-quicksand mb-2">
+                                                {category.category}
+                                            </p>
+                                            <div className="flex flex-col items-start justify-center gap-3 px-2">
+                                                {category.items.map((item) => (
+                                                    <ItemCount
+                                                        key={item.id}
+                                                        tag={item.name}
+                                                        showComplete={showComplete}
+                                                    />
+                                                ))}
+                                            </div>
+                                        </div>
                                     ))}
                                 </div>
-                                <p className="text-gray-text-1 text-sm font-medium font-quicksand">
-                                    Meat and Fish
-                                </p>
-                                <div className="flex flex-col items-start justify-center gap-4 px-2">
-                                    {selectedItem.map((item) => (
-                                        <ItemCount
-                                            key={item.id}
-                                            tag={item.name}
-                                            showComplete={showComplete}
-                                        />
-                                    ))}
-                                </div>
-                                <p className="text-gray-text-1 text-sm font-medium font-quicksand">
-                                    Meat and Fish
-                                </p>
-                                <div className="flex flex-col items-start justify-center gap-4 px-2">
-                                    {selectedItem.map((item) => (
-                                        <ItemCount
-                                            key={item.id}
-                                            tag={item.name}
-                                            showComplete={showComplete}
-                                        />
-                                    ))}
-                                </div>
-                                <p className="text-gray-text-1 text-sm font-medium font-quicksand">
-                                    Meat and Fish
-                                </p>
-                                <div className="flex flex-col items-start justify-center gap-4 px-2">
-                                    {selectedItem.map((item) => (
-                                        <ItemCount
-                                            key={item.id}
-                                            tag={item.name}
-                                            showComplete={showComplete}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
+                            </>
                             <Space.Compact
                                 style={{
                                     width: "100%",
@@ -188,54 +247,27 @@ const ListItems = ({
                     ) : (
                         <>
                             <div className="h-3/5 flex flex-col gap-4 overflow-y-auto">
-                                <p className="text-gray-text-1 text-sm font-medium font-quicksand">
-                                    Fruit and vegetables
-                                </p>
-                                <div className="flex flex-col items-start justify-center gap-4 px-2">
-                                    {selectedItem.map((item) => (
-                                        <ItemCount
-                                            key={item.id}
-                                            tag={item.name}
-                                            showComplete={showComplete}
-                                        />
+                                <>
+                                    {selectedItem.map((category) => (
+                                        <div key={category.id}>
+                                            <p className="text-gray-text-1 text-sm font-medium font-quicksand mb-2">
+                                                {category.category}
+                                            </p>
+                                            <div className="flex flex-col items-start justify-center gap-3 px-2">
+                                                {category.items.map((item) => (
+                                                    <ItemCount
+                                                        allChecked={allChecked}
+                                                        checkedAllItems={checkedAllItems}
+                                                        setAllChecked={setAllChecked}
+                                                        key={item.id}
+                                                        tag={item.name}
+                                                        showComplete={showComplete}
+                                                    />
+                                                ))}
+                                            </div>
+                                        </div>
                                     ))}
-                                </div>
-                                <p className="text-gray-text-1 text-sm font-medium font-quicksand">
-                                    Meat and Fish
-                                </p>
-                                <div className="flex flex-col items-start justify-center gap-4 px-2">
-                                    {selectedItem.map((item) => (
-                                        <ItemCount
-                                            key={item.id}
-                                            tag={item.name}
-                                            showComplete={showComplete}
-                                        />
-                                    ))}
-                                </div>
-                                <p className="text-gray-text-1 text-sm font-medium font-quicksand">
-                                    Meat and Fish
-                                </p>
-                                <div className="flex flex-col items-start justify-center gap-4 px-2">
-                                    {selectedItem.map((item) => (
-                                        <ItemCount
-                                            key={item.id}
-                                            tag={item.name}
-                                            showComplete={showComplete}
-                                        />
-                                    ))}
-                                </div>
-                                <p className="text-gray-text-1 text-sm font-medium font-quicksand">
-                                    Meat and Fish
-                                </p>
-                                <div className="flex flex-col items-start justify-center gap-4 px-2">
-                                    {selectedItem.map((item) => (
-                                        <ItemCount
-                                            key={item.id}
-                                            tag={item.name}
-                                            showComplete={showComplete}
-                                        />
-                                    ))}
-                                </div>
+                                </>
                             </div>
                             <Space.Compact
                                 style={{
@@ -246,12 +278,38 @@ const ListItems = ({
                                     margin: "auto",
                                 }}
                             >
-                                <button className="text-black bg-white rounded text-sm py-2 px-4 font-medium font-quicksand phone:py-1 phone:text-xs">
+                                <button
+                                    onClick={showDeleteConfirm}
+                                    className={`text-black bg-white rounded text-sm py-2 px-4 font-medium font-quicksand phone:py-1 phone:text-xs ${allChecked ? "hidden" : ""}`}
+                                >
                                     Cancel
                                 </button>
-                                <button className="text-white bg-cyan rounded text-sm py-2 px-5 font-medium font-quicksand phone:py-1 phone:text-xs">
-                                    Complete
-                                </button>
+                                {
+                                    allChecked ? (
+                                        <div className="flex flex-row items-center justify-between gap-2">
+                                            <button
+                                                onClick={checkedAllItems}
+                                                className="text-black bg-white rounded text-sm py-2 px-4 font-medium font-quicksand phone:py-1 phone:text-xs"
+                                            >
+                                                Unselect all
+                                            </button>
+                                            <button
+
+                                                className="text-white bg-yellow rounded text-sm py-2 px-4 font-medium font-quicksand phone:py-1 phone:text-xs"
+                                            >
+                                                Confirm
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <button
+                                            onClick={checkedAllItems}
+                                            className="text-white bg-yellow rounded text-sm py-2 px-4 font-medium font-quicksand phone:py-1 phone:text-xs"
+                                        >
+                                            Complete
+                                        </button>
+
+                                    )
+                                }
                             </Space.Compact>
                         </>
                     )}
