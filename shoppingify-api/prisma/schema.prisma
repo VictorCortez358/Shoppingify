@@ -1,0 +1,43 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") 
+  directUrl = env("POSTGRES_URL_NON_POOLING") 
+  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model ListShopping {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  state     State  @default(IN_PROGRESS)
+  isActive  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  items     Item[]
+}
+
+model Item {
+  id          Int      @id @default(autoincrement())
+  name        String  @unique 
+  quantity    Int    @default(0) 
+  note        String?
+  image       String?
+  category    String
+  isComplete  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  listShopping ListShopping? @relation(fields: [listShoppingId], references: [id])
+  listShoppingId Int?
+}
+
+enum State {
+  IN_PROGRESS
+  DONE
+  CANCELED
+}
+
+
